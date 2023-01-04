@@ -1,22 +1,26 @@
+# Backtracking Solution
+
 class Solution {
 public:
-    void recsolve(vector<vector<int>>& res, vector<int>& nums, vector<int>& temp, int i)
+    void solve(int n, vector<int> &s, vector<vector<int>> &res, vector<int> nums)
     {
-        if(i>=nums.size())
+        if(n<0)
         {
-            res.push_back(temp);
+            res.push_back(s);
             return;
         }
-        temp.push_back(nums[i]);
-        recsolve(res,nums,temp,i+1);
-        temp.pop_back();
-        recsolve(res,nums,temp,i+1);
-        
+        s.push_back(nums[n]);
+        solve(n-1,s,res,nums);
+        s.pop_back();
+        solve(n-1,s,res,nums);
+
     }
+
     vector<vector<int>> subsets(vector<int>& nums) {
-        vector<vector<int>> res;
+        int n = nums.size()-1;
         vector<int> temp;
-        recsolve(res,nums,temp,0);
-        return res;
+        vector<vector<int>> res;
+        solve(n,temp,res,nums);
+        return res; 
     }
 };
