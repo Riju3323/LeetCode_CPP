@@ -1,27 +1,26 @@
+#Backtracking Solution
+
 class Solution {
 public:
-    void recsolve(vector<vector<int>>& val, vector<int>& temp, int n, int k, int sum)
+    void solve(int n, int k, int idx, vector<vector<int>> &res, vector<int> &temp)
     {
         if(temp.size()==k)
         {
-            val.push_back(temp);
+            res.push_back(temp);
             return;
         }
-        if(temp.size()>k || sum>n)
+        for(int i = idx;i<=n;i++)
         {
-            return;
+            temp.push_back(i);
+            solve(n,k,i+1,res,temp);
+            temp.pop_back();
         }
-        temp.push_back(sum);
-        recsolve(val,temp,n,k,sum+1);
-        temp.pop_back();
-        recsolve(val,temp,n,k,sum+1);
-
-
     }
+
     vector<vector<int>> combine(int n, int k) {
-        vector<vector<int>> v;
+        vector<vector<int>> res;
         vector<int> temp;
-        recsolve(v,temp,n,k,1);
-        return v;
+        solve(n,k,1,res,temp);
+        return res;
     }
 };
